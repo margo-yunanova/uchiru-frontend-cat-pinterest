@@ -1,13 +1,23 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
 import { Cats } from '@components/cats/Cats';
 import { getFavoriteCatsLoader } from '@utils/loaders';
+import { FavoriteCatsContext } from '@utils/constants';
+import { ICat } from '@components/cat/Cat';
 
 export const FavoriteCats: FC = () => {
-  const { favoriteCats } = useLoaderData() as Awaited<
+  const { cats } = useLoaderData() as Awaited<
     ReturnType<typeof getFavoriteCatsLoader>
   >;
+  const { favoriteCats } = useContext(FavoriteCatsContext);
 
-  return <Cats cats={favoriteCats} />;
+  const catsWithFavorites: ICat[] = cats
+    .map((cat) => ({
+      ...cat,
+      isFavorite: favoriteCats.includes(cat.id),
+    }))
+    .filter((cat) => cat.isFavorite);
+
+  return <Cats cats={catsWithFavorites} />;
 };

@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
+
+import { FavoriteCatsContext } from '@utils/constants';
 
 import styles from './App.module.css';
 
@@ -9,7 +11,14 @@ const tabNames = [
 ];
 
 function App() {
-  const [activeTab, setActiveTab] = useState(0);
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState(
+    tabNames.findIndex((tab) => tab.url === location.pathname),
+  );
+
+  const [favoriteCats, setFavoriteCats] = useState<string[]>(
+    JSON.parse(localStorage.getItem('favoriteCats') ?? '[]') as string[],
+  );
 
   const handleTabClick = (tabIndex: number) => {
     setActiveTab(tabIndex);
@@ -48,7 +57,9 @@ function App() {
         </div>
       </header>
       <main className={styles.main}>
-        <Outlet />
+        <FavoriteCatsContext.Provider value={{ favoriteCats, setFavoriteCats }}>
+          <Outlet />
+        </FavoriteCatsContext.Provider>
       </main>
     </>
   );

@@ -7,12 +7,7 @@ export async function getAllCatsLoader() {
 }
 
 export async function getFavoriteCatsLoader() {
-  const response = await getFavoriteCats();
+  const cats = await getFavoriteCats();
 
-  const favoriteCats = response.map((cat) => ({
-    ...cat,
-    isFavorite: true,
-  }));
-
-  return { favoriteCats };
+  return { cats };
 }

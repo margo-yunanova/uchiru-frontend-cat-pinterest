@@ -1,15 +1,13 @@
 import { FC } from 'react';
 
 interface ILikeIcon {
-  onMouseEnter: () => void;
   classNames: string;
 }
 
-export const LikeIcon: FC<ILikeIcon> = ({ onMouseEnter, classNames }) => {
+export const LikeIcon: FC<ILikeIcon> = ({ classNames }) => {
   return (
     <svg
       className={classNames}
-      onMouseEnter={onMouseEnter}
       width="40"
       height="37"
       viewBox="0 0 40 37"

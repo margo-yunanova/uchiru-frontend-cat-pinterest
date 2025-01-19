@@ -1,4 +1,6 @@
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
+
+import { FavoriteCatsContext } from '@utils/constants';
 
 import { LikeIcon } from '../icons/LikeIcon';
 import { LikedIcon } from '../icons/LikedIcon';
@@ -19,48 +21,47 @@ export const Cat: FC<ICat> = ({
   url,
   alt = 'Фотография котика',
   isFavorite,
+  id,
 }) => {
-  const [isHeartShown, setIsHeartShown] = useState(false);
-  const [isHeartHovered, setIsHeartHovered] = useState(false);
+  const { setFavoriteCats } = useContext(FavoriteCatsContext);
+  const [isHovered, setIsHovered] = useState(false);
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const addToFavorites = () => {};
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  const toggleLike = (id: string) => {
+    if (isFavorite) {
+      setFavoriteCats((prev) => {
+        const newFavoriteCats = prev.filter((catId) => catId !== id);
+        localStorage.setItem('favoriteCats', JSON.stringify(newFavoriteCats));
+        return newFavoriteCats;
+      });
+    }
+
+    if (!isFavorite) {
+      setFavoriteCats((prev) => {
+        const newFavoriteCats = [...prev, id];
+        localStorage.setItem('favoriteCats', JSON.stringify(newFavoriteCats));
+        return newFavoriteCats;
+      });
+    }
+  };
 
   return (
     <div
       className={styles.container}
-      onMouseEnter={() => {
-        if (isFavorite) {
-          setIsHeartHovered(true);
-        } else {
-          setIsHeartShown(true);
-        }
-      }}
-      onMouseLeave={() => {
-        if (isFavorite) {
-          setIsHeartHovered(false);
-        } else {
-          setIsHeartShown(false);
-        }
-      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={() => toggleLike(id)}
     >
       <img src={url} alt={alt} className={styles.image} />
-      {isHeartShown && (
-        <LikeIcon
-          onMouseEnter={() => {
-            setIsHeartShown(false);
-            setIsHeartHovered(true);
-          }}
-          classNames={styles.heart}
-        />
-      )}
-      {isHeartHovered && (
-        <LikedIcon
-          onMouseLeave={() => setIsHeartHovered(false)}
-          onClick={addToFavorites}
-          classNames={styles.heart}
-        />
-      )}
+      {!isFavorite && isHovered && <LikeIcon classNames={styles.heart} />}
+      {isFavorite && <LikedIcon classNames={styles.heart} />}
     </div>
   );
 };

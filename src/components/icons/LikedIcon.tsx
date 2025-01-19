@@ -1,21 +1,13 @@
 import { FC } from 'react';
 
 interface ILikedIcon {
-  onMouseLeave: () => void;
-  onClick: () => void;
   classNames: string;
 }
 
-export const LikedIcon: FC<ILikedIcon> = ({
-  onMouseLeave,
-  onClick,
-  classNames,
-}) => {
+export const LikedIcon: FC<ILikedIcon> = ({ classNames }) => {
   return (
     <svg
       className={classNames}
-      onMouseLeave={onMouseLeave}
-      onClick={onClick}
       width="40"
       height="37"
       viewBox="0 0 40 37"
