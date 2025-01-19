@@ -1,5 +1,10 @@
 import { createContext } from 'react';
 
+export const tabNames = [
+  { name: 'Все котики', url: '/' },
+  { name: 'Любимые котики', url: '/favorites' },
+];
+
 export const BASE_URL = 'https://api.thecatapi.com/v1';
 
 export const FavoriteCatsContext = createContext<{
