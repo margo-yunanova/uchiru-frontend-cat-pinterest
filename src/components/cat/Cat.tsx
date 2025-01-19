@@ -6,16 +6,7 @@ import { LikeIcon } from '../icons/LikeIcon';
 import { LikedIcon } from '../icons/LikedIcon';
 
 import styles from './cat.module.css';
-
-export interface ICat {
-  alt?: string;
-  isFavorite: boolean;
-  breeds: [];
-  id: string;
-  url: string;
-  width: number;
-  height: number;
-}
+import { ICat } from './Cat.props';
 
 export const Cat: FC<ICat> = ({
   url,

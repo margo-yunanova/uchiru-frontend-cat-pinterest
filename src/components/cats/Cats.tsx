@@ -1,12 +1,9 @@
 import { FC } from 'react';
 
-import { Cat, ICat } from '../cat/Cat';
+import { Cat } from '../cat/Cat';
 
 import styles from './cats.module.css';
-
-interface ICats {
-  cats: ICat[];
-}
+import { ICats } from './Cats.props';
 
 export const Cats: FC<ICats> = ({ cats }) => {
   return (

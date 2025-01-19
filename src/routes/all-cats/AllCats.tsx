@@ -4,7 +4,7 @@ import { useLoaderData } from 'react-router-dom';
 import { Cats } from '@components/cats/Cats';
 import { getAllCatsLoader } from '@utils/loaders';
 import { FavoriteCatsContext } from '@utils/constants';
-import { ICat } from '@components/cat/Cat';
+import { ICat } from '@components/cat/Cat.props';
 
 export const AllCats: FC = () => {
   const { cats } = useLoaderData() as Awaited<
