@@ -47,9 +47,11 @@ export default tseslint.config(
         alias: {
           map: [
             ['@', './src'],
-            ['@pages', './src/pages'],
-            ['@shared', './src/shared'],
             ['@assets', './src/assets'],
+            ['@components', './src/components'],
+            ['@pages', './src/pages'],
+            ['@routes', './src/routes'],
+            ['@utils', './src/utils'],
           ],
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },
@@ -65,6 +67,7 @@ export default tseslint.config(
       'react-hooks/exhaustive-deps': 'warn',
       'import/no-unresolved': 'error',
       'react/prop-types': 'off',
+      'import/no-useless-path-segments': 'error',
       'import/order': [
         'error',
         {
