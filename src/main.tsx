@@ -4,11 +4,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import './index.css';
 
-import { getAllCatsLoader } from '@utils/loaders.ts';
+import { getAllCatsLoader, getFavoriteCatsLoader } from '@utils/loaders.ts';
 
 import App from './App.tsx';
 import ErrorPage from './pages/error-page/ErrorPage.tsx';
 import { AllCats } from './routes/all-cats/AllCats.tsx';
+import { FavoriteCats } from './routes/favorite-cats/FavoriteCats.tsx';
 
 async function enableMocking() {
   // if (process.env.NODE_ENV !== "development") {
@@ -27,7 +28,14 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
-    children: [{ path: '/', element: <AllCats />, loader: getAllCatsLoader }],
+    children: [
+      { index: true, element: <AllCats />, loader: getAllCatsLoader },
+      {
+        path: '/favorites',
+        element: <FavoriteCats />,
+        loader: getFavoriteCatsLoader,
+      },
+    ],
   },
 ]);
 

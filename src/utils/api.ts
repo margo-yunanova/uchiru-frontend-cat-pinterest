@@ -28,3 +28,19 @@ export const getAllCats = async (
 
   return checkResponse(response);
 };
+
+export const getCatById = async (id: string): Promise<CatResponse> => {
+  const response = await fetch(`${BASE_URL}/images/${id}`);
+
+  return checkResponse(response);
+};
+
+export const getFavoriteCats = async (): Promise<CatResponse[]> => {
+  const favoriteCats = JSON.parse(
+    localStorage.getItem('favoriteCats') ?? '[]',
+  ) as string[];
+
+  const response = await Promise.all(favoriteCats.map(getCatById));
+
+  return response;
+};
