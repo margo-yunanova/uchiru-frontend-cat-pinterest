@@ -1,0 +1,12 @@
+.cats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 225px);
+  place-content: center;
+  grid-auto-rows: 225px;
+  row-gap: 52px;
+  column-gap: 31px;
+  list-style-type: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+}
